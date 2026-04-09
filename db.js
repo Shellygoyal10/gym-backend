@@ -1,18 +1,14 @@
 const mysql = require('mysql2');
 
-const db = mysql.createConnection({
-  host: 'localhost',
+const db = mysql.createPool({
+  host: 'mainline.proxy.rlwy.net',
   user: 'root',
-  password: 'root123',   // 👈 put your MySQL password here
-  database: 'gym_management'
+  password: 'LDRRmAOvPknXycereLeonRAqxvpEMmWG',
+  database: 'railway',
+  port: 30392,
+  waitForConnections: true,
+  connectionLimit: 10,
+  queueLimit: 0
 });
 
-db.connect((err) => {
-  if (err) {
-    console.log("DB Error:", err);
-  } else {
-    console.log("MySQL Connected ✅");
-  }
-});
-
-module.exports = db;
+module.exports = db.promise();
