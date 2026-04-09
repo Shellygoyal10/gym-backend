@@ -16,14 +16,14 @@ app.get('/', (req, res) => {
 
 
 // ── GET ALL MEMBERS ───────────────────────────────────────────────────────────
-app.get('/members', (req, res) => {
-  db.query('SELECT * FROM members', (err, result) => {
-    if (err) {
-      console.error('DB error on /members:', err);
-      return res.status(500).json({ error: err.message });
-    }
-    res.json(result);
-  });
+app.get("/members", async (req, res) => {
+  try {
+    const [rows] = await db.query("SELECT * FROM members");
+    res.json(rows);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: err.message });
+  }
 });
 
 
